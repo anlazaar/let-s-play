@@ -3,6 +3,7 @@ package com.letsplay.shop.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.letsplay.shop.models.User;
@@ -14,12 +15,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRespository;
+    private final PasswordEncoder passwdEncoder;
 
     public User createUser(User user) {
         Optional<User> existing = userRespository.findByEmail(user.getEmail());
         if (existing.isPresent()) {
             throw new RuntimeException("Email already taken");
         }
+
+        user.setPassword(passwdEncoder.encode(user.getPassword()));
 
         return userRespository.save(user);
     }
@@ -37,7 +41,7 @@ public class UserService {
 
         existing.setName(usernewinfo.getName());
         existing.setEmail(usernewinfo.getEmail());
-        existing.setPassword(usernewinfo.getPassword());
+        existing.setPassword(passwdEncoder.encode(usernewinfo.getPassword()));
 
         return userRespository.save(existing);
     }
