@@ -7,6 +7,7 @@ import com.letsplay.shop.dto.LoginRequest;
 import com.letsplay.shop.dto.RegisterRequest;
 import com.letsplay.shop.services.AuthenticationService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;

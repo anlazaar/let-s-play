@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.letsplay.shop.models.User;
 import com.letsplay.shop.services.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
@@ -40,7 +41,8 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> putMethodName(@PathVariable String id, @RequestBody User newUserInfo) {
+    public ResponseEntity<User> putMethodName(@PathVariable String id, @Valid @RequestBody User newUserInfo) {
+        newUserInfo.setRole(newUserInfo.getRole().toUpperCase());
         return ResponseEntity.ok(userService.updateUser(id, newUserInfo));
     }
 

@@ -2,6 +2,8 @@ package com.letsplay.shop.controllers;
 
 import com.letsplay.shop.models.Product;
 import com.letsplay.shop.services.ProductService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         return ResponseEntity.ok(productService.createProduct(product));
     }
 
@@ -26,14 +28,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable String id) {
+    public ResponseEntity<Product> getProduct(@Valid @PathVariable String id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(
             @PathVariable String id,
-            @RequestBody Product product) {
+            @Valid @RequestBody Product product) {
         return ResponseEntity.ok(productService.updateProduct(id, product));
     }
 
