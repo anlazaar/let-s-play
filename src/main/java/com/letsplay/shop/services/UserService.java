@@ -21,7 +21,7 @@ public class UserService {
         Optional<User> existing = userRespository.findByEmail(user.getEmail());
         if (existing.isPresent()) {
             throw new RuntimeException("Email already taken");
-        }
+}
 
         user.setPassword(passwdEncoder.encode(user.getPassword()));
 
@@ -41,6 +41,7 @@ public class UserService {
 
         existing.setName(usernewinfo.getName());
         existing.setEmail(usernewinfo.getEmail());
+        existing.setRole(usernewinfo.getRole());
         existing.setPassword(passwdEncoder.encode(usernewinfo.getPassword()));
 
         return userRespository.save(existing);

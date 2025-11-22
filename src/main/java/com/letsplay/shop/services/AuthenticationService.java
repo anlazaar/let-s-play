@@ -25,6 +25,23 @@ public class AuthenticationService {
             throw new RuntimeException("Password Incorrect");
         }
 
-        return jwtService.generateToken(user.getName());
+        return jwtService.generateToken(user);
+    }
+
+    public String register(String name, String email, String password) {
+
+        if (userRepo.findByEmail(email).isPresent()) {
+            throw new RuntimeException("Email already taken");
+        }
+
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(passwdEnco.encode(password));
+        user.setRole("USER"); // this will be the default we need to figure out how to change it!
+
+        userRepo.save(user);
+
+        return jwtService.generateToken(user);
     }
 }
