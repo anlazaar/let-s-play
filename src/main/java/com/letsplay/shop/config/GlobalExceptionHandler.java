@@ -1,6 +1,6 @@
 package com.letsplay.shop.config;
 
-import java.net.http.HttpResponse;
+// import java.net.http.HttpResponse;
 import java.nio.file.AccessDeniedException;
 import java.security.SignatureException;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.mongodb.MongoException;
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MongoWriteException.class)
     public ResponseEntity<?> handleDuplicateKey(MongoWriteException ex) {
         if (ex.getCode() == 11000) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("error", "Email already exists"));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

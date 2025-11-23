@@ -22,7 +22,6 @@ public class User {
     @NotBlank(message = "Name is required")
     private String name;
 
-    @Indexed(unique = true)
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
     private String email;

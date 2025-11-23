@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.letsplay.shop.dto.UserPatchRequest;
 import com.letsplay.shop.models.User;
 import com.letsplay.shop.repositories.UserRepository;
 
@@ -21,7 +22,7 @@ public class UserService {
         Optional<User> existing = userRespository.findByEmail(user.getEmail());
         if (existing.isPresent()) {
             throw new RuntimeException("Email already taken");
-}
+        }
 
         user.setPassword(passwdEncoder.encode(user.getPassword()));
 
@@ -49,5 +50,24 @@ public class UserService {
 
     public void deleteUser(String id) {
         userRespository.deleteById(id);
+    }
+
+    public User patchUser(String id, UserPatchRequest req) {
+        User user = userRespository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (req.getName() != null)
+            user.setName(req.getName());
+        if (req.getRole() != null)
+            user.setRole(req.getRole());
+        if (req.getPassword() != null)
+            user.setPassword(req.getPassword());
+        if (req.getEmail() != null) {
+            if (userRespository.findByEmail(req.getEmail()).isPresent()) {
+                throw new RuntimeException("Email already taken");
+            }
+            user.setEmail(req.getEmail());
+        }
+
+        return userRespository.save(user);
     }
 }
