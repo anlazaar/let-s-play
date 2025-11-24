@@ -7,7 +7,6 @@ import com.letsplay.shop.models.User;
 import com.letsplay.shop.services.UserService;
 import com.letsplay.shop.dto.UserPatchRequest;
 
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -39,24 +38,24 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateFullUserInfo(@PathVariable String id, @Valid @RequestBody User newUserInfo) {
+    public ResponseEntity<User> updateFullUserInfo(@PathVariable Long id, @Valid @RequestBody User newUserInfo) {
         newUserInfo.setRole(newUserInfo.getRole().toUpperCase());
         return ResponseEntity.ok(userService.updateUser(id, newUserInfo));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updateSomeUserInfo(@PathVariable String id, @Valid @RequestBody UserPatchRequest req) {
+    public ResponseEntity<User> updateSomeUserInfo(@PathVariable Long id, @Valid @RequestBody UserPatchRequest req) {
         User updated = userService.patchUser(id, req);
         return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable String id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted");
     }

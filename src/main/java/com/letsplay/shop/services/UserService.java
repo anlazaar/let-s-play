@@ -33,11 +33,11 @@ public class UserService {
         return userRespository.findAll();
     }
 
-    public User getUserById(String id) {
+    public User getUserById(Long id) {
         return userRespository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    public User updateUser(String id, User usernewinfo) {
+    public User updateUser(Long id, User usernewinfo) {
         User existing = getUserById(id);
 
         existing.setName(usernewinfo.getName());
@@ -48,11 +48,11 @@ public class UserService {
         return userRespository.save(existing);
     }
 
-    public void deleteUser(String id) {
+    public void deleteUser(Long id) {
         userRespository.deleteById(id);
     }
 
-    public User patchUser(String id, UserPatchRequest req) {
+    public User patchUser(Long id, UserPatchRequest req) {
         User user = userRespository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
         if (req.getName() != null)

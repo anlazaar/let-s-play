@@ -22,11 +22,11 @@ public class ProductService {
         return productRepo.findAll();
     }
 
-    public Product getProductById(String id) {
+    public Product getProductById(Long id) {
         return productRepo.findById(id).orElseThrow(() -> new RuntimeException("No Product found"));
     }
 
-    public Product updateProduct(String id, Product newProductInfo) {
+    public Product updateProduct(Long id, Product newProductInfo) {
         Product existing = getProductById(id);
 
         existing.setName(newProductInfo.getName());
@@ -36,7 +36,8 @@ public class ProductService {
         return productRepo.save(existing);
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(Long id) {
+        getProductById(id);
         productRepo.deleteById(id);
     }
 }
