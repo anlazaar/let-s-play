@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.letsplay.shop.dto.ProductPatchRequest;
 import com.letsplay.shop.models.Product;
 import com.letsplay.shop.repositories.ProductRepository;
 
@@ -34,6 +35,19 @@ public class ProductService {
         existing.setQuantity(newProductInfo.getQuantity());
 
         return productRepo.save(existing);
+    }
+
+    public Product patchProduct(String id, ProductPatchRequest newProduct) {
+        Product product = productRepo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if (newProduct.getName() != null)
+            product.setName(newProduct.getName());
+        if (newProduct.getPrice() != null)
+            product.setPrice(newProduct.getPrice());
+        if (newProduct.getQuantity() != null)
+            product.setQuantity(newProduct.getQuantity());
+
+        return productRepo.save(product);
     }
 
     public void deleteProduct(String id) {

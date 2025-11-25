@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.letsplay.shop.dto.ProductPatchRequest;
 import com.letsplay.shop.models.Product;
 import com.letsplay.shop.services.ProductService;
 
@@ -37,6 +38,12 @@ public class ProductController {
             @PathVariable String id,
             @Valid @RequestBody Product product) {
         return ResponseEntity.ok(productService.updateProduct(id, product));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> patchProduct(@PathVariable String id, @Valid @RequestBody ProductPatchRequest req) {
+        Product updated = productService.patchProduct(id, req);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
