@@ -10,6 +10,8 @@ import com.letsplay.shop.services.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +25,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> postMethodName(@Valid @RequestBody LoginRequest request) {
         String token = authService.login(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok().body(token);
+        return ResponseEntity.ok().body(Map.of("token", token));
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> postMethodName(@Valid @RequestBody RegisterRequest request) {
         String token = authService.register(request.getName(), request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok().body(Map.of("token", token));
     }
 }

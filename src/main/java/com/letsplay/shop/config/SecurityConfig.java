@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.letsplay.shop.security.JwtAuthFilter;
 import com.letsplay.shop.security.JwtService;
-// import com.letsplay.shop.security.RateLimitFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -20,13 +19,26 @@ import com.letsplay.shop.security.JwtService;
 public class SecurityConfig {
 
     private final JwtService jwtService;
-    // private final RateLimitFilter rateLimitFilter;
-    // private final JwtAuthFilter jwtAuthFilter;
+
+    @Bean
+    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
+        org.springframework.web.cors.CorsConfiguration config = new org.springframework.web.cors.CorsConfiguration();
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
+
+        org.springframework.web.cors.UrlBasedCorsConfigurationSource source = new org.springframework.web.cors.UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()

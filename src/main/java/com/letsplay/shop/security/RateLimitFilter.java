@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class RateLimitFilter implements Filter {
 
-    private static final int MAX_REQUESTS_PER_ITRVL = 2; // just to test needs to be bigger XD
+    private static final int MAX_REQUESTS_PER_ITRVL = 20; // just to test needs to be bigger XD
     private static final long INTERVAL = 60 * 1000;
 
     private static class RateLimitInfo {
