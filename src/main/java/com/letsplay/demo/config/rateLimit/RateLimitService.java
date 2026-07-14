@@ -17,15 +17,15 @@ public class RateLimitService {
         return buckets.computeIfAbsent(key, k -> createBucket());
     }
 
-private Bucket createBucket() {
+    private Bucket createBucket() {
 
-    Bandwidth limit = Bandwidth.builder()
-            .capacity(240)
-            .refillGreedy(60, Duration.ofMinutes(1))
-            .build();
+        Bandwidth limit = Bandwidth.builder()
+                .capacity(240)
+                .refillGreedy(60, Duration.ofMinutes(1))
+                .build();
 
-    return Bucket.builder()
-            .addLimit(limit)
-            .build();
-}
+        return Bucket.builder()
+                .addLimit(limit)
+                .build();
+    }
 }

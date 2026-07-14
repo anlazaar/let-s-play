@@ -99,7 +99,6 @@ public class GlobalExceptionHandler {
                                 .body(Map.of(
                                                 "error", ex.getMessage()));
         }
-        
 
         @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
         public ResponseEntity<?> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex) {

@@ -6,15 +6,11 @@ import jakarta.validation.constraints.*;
 
 public record UpdateRequest(
 
-    @NotBlank
-    @Size(min = 3, max = 25)
-    String name,
+        @NotBlank @Size(min = 3, max = 25) String name,
 
-    @Email
-    @NotBlank
-    String email,
+        @Email @NotBlank String email,
 
-    @NotNull
-    Role role
+        @NotNull Role role
 
-) {}
+) {
+}

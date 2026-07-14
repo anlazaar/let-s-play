@@ -7,15 +7,13 @@ import jakarta.validation.constraints.Size;
 
 public record EditRequest(
 
-    @Size(min = 3, max = 25)
-    String name,
+        @Size(min = 3, max = 25) String name,
 
-    @Email
-    String email,
+        @Email String email,
 
-    Role role,
+        Role role,
 
-    @Size(min = 8, max = 30)
-    String password
+        @Size(min = 8, max = 30) String password
 
-) {}
+) {
+}

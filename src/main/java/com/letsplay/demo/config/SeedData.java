@@ -21,7 +21,7 @@ public class SeedData {
 
     @Value("${admin.email}")
     private String adminEmail;
-    
+
     @Value("${admin.password}")
     private String adminPassword;
 
@@ -36,7 +36,7 @@ public class SeedData {
                 admin.setEmail(adminEmail);
                 admin.setPassword(encoder.encode(adminPassword));
                 admin.setRole(Role.ADMIN);
-                
+
                 repo.save(admin);
             }
         };

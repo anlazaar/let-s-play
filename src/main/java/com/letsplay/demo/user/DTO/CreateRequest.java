@@ -6,19 +6,13 @@ import jakarta.validation.constraints.*;
 
 public record CreateRequest(
 
-    @NotBlank
-    @Size(min = 3, max = 25)
-    String name,
+        @NotBlank @Size(min = 3, max = 25) String name,
 
-    @Email
-    @NotBlank
-    String email,
+        @Email @NotBlank String email,
 
-    @NotNull
-    Role role,
+        @NotNull Role role,
 
-    @NotBlank
-    @Size(min = 8, max = 30)
-    String password
+        @NotBlank @Size(min = 8, max = 30) String password
 
-) {}
+) {
+}

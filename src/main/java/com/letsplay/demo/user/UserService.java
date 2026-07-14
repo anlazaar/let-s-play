@@ -74,7 +74,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // Private    
+    // Private
     private User retrieveUser(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
